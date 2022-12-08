@@ -6,15 +6,15 @@ type TreeNodeItemProps = {
   node: TreeNode
   parentId: string
   isDragging: boolean
-  handleToggleCheck: (e: JSX.TargetedEvent<HTMLInputElement>) => void
-  handleDelete: (e: JSX.TargetedEvent<HTMLButtonElement>) => void
-  handleDragEnd: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleDragEnter: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleDragLeave: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleDragOver: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleDragStart: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleDrop: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleToggleOpen: (e: JSX.TargetedEvent<HTMLElement>) => void
+  handleDelete: (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => void
+  handleDragEnd: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleDragEnter: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleDragLeave: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleDragOver: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleDragStart: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleDrop: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleToggleCheck: (e: JSX.TargetedMouseEvent<HTMLInputElement>) => void
+  handleToggleOpen: (e: JSX.TargetedMouseEvent<HTMLElement>) => void
 }
 
 export const TreeNodeItem = (props: TreeNodeItemProps) => {

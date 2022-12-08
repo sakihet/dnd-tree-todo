@@ -9,10 +9,10 @@ type TreeSpacerProps = {
   parentId: string
   position : SpacerPosition
   isDragging: boolean
-  handleDragEnter: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleDragLeave: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleDragOver: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleDrop: (e: JSX.TargetedEvent<HTMLDivElement>) => void
+  handleDragEnter: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleDragLeave: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleDragOver: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleDrop: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
 }
 
 export const TreeSpacer = (props: TreeSpacerProps) => {

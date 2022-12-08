@@ -63,11 +63,11 @@ export function App() {
     setNewTaskName('')
   }
 
-  const handleClickClear = (e: JSX.TargetedEvent<HTMLButtonElement>) => {
+  const handleClickClear = (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
     setTreeNode({...treeNode, children: []})
   }
 
-  const handleDelete = (e: JSX.TargetedEvent<HTMLButtonElement>) => {
+  const handleDelete = (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
     const nodeId = e.currentTarget.dataset.nodeId
     if (nodeId) {
       if (confirm('Do you really want to delete it?')) {
@@ -76,11 +76,11 @@ export function App() {
     }
   }
 
-  const handleDragEnd = (e: JSX.TargetedEvent<HTMLDivElement>) => {
+  const handleDragEnd = (e: JSX.TargetedDragEvent<HTMLDivElement>) => {
     setDraggingId(null)
   }
 
-  const handleDragEnter = (e: JSX.TargetedEvent<HTMLDivElement>) => {
+  const handleDragEnter = (e: JSX.TargetedDragEvent<HTMLDivElement>) => {
     const { first, last, parentId, nextId, dropTargetNodeId, dropTargetType } = e.currentTarget.dataset
     if (draggingId) {
       if (dropTargetType === 'node' && parentId && dropTargetNodeId) {
@@ -95,15 +95,15 @@ export function App() {
     }
   }
 
-  const handleDragLeave = (e: JSX.TargetedEvent<HTMLDivElement>) => {
+  const handleDragLeave = (e: JSX.TargetedDragEvent<HTMLDivElement>) => {
     removeDroppableStyles(e.currentTarget)
   }
 
-  const handleDragOver = (e: JSX.TargetedEvent<HTMLDivElement>) => {
+  const handleDragOver = (e: JSX.TargetedDragEvent<HTMLDivElement>) => {
     e.preventDefault() // enable drop event
   }
 
-  const handleDragStart = (e: JSX.TargetedEvent<HTMLDivElement>) => {
+  const handleDragStart = (e: JSX.TargetedDragEvent<HTMLDivElement>) => {
     setDraggingId(e.currentTarget.dataset.nodeId || null)
   }
 
@@ -114,7 +114,7 @@ export function App() {
     target.classList.remove('undroppable-spacer')
   }
 
-  const handleDrop = (e: JSX.TargetedEvent<HTMLDivElement>) => {
+  const handleDrop = (e: JSX.TargetedDragEvent<HTMLDivElement>) => {
     const {first, last, parentId, nextId, dropTargetType, dropTargetNodeId} = e.currentTarget.dataset
     if (draggingId) {
       if (dropTargetType === 'node' && dropTargetNodeId && canDrop(treeNode, dropTargetNodeId, draggingId)) {
@@ -132,14 +132,14 @@ export function App() {
     removeDroppableStyles(e.currentTarget)
   }
 
-  const handleToggleCheck = (e: JSX.TargetedEvent<HTMLInputElement>) => {
+  const handleToggleCheck = (e: JSX.TargetedMouseEvent<HTMLInputElement>) => {
     const nodeId = e.currentTarget.dataset.nodeId
     if (nodeId) {
       setTreeNode({...toggleNodeCompleted(treeNode, nodeId)})
     }
   }
 
-  const handleToggleOpen = (e: JSX.TargetedEvent<HTMLElement>) => {
+  const handleToggleOpen = (e: JSX.TargetedMouseEvent<HTMLElement>) => {
     const nodeId = e.currentTarget.dataset.nodeId
     if (nodeId) {
       setTreeNode({...toggleNodeOpen(treeNode, nodeId)})
@@ -173,7 +173,6 @@ export function App() {
           treeNodes={treeNode.children}
           rootId={treeNode.id}
           isDragging={draggingId ? true : false}
-          handleCheck={handleToggleCheck}
           handleDelete={handleDelete}
           handleDragEnd={handleDragEnd}
           handleDragEnter={handleDragEnter}
@@ -181,6 +180,7 @@ export function App() {
           handleDragOver={handleDragOver}
           handleDragStart={handleDragStart}
           handleDrop={handleDrop}
+          handleToggleCheck={handleToggleCheck}
           handleToggleOpen={handleToggleOpen}
         />
       </div>

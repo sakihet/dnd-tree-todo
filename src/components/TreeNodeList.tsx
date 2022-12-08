@@ -8,15 +8,15 @@ type TreeNodeListProps = {
   rootId: string
   treeNodes: TreeNode[]
   isDragging: boolean
-  handleCheck: (e: JSX.TargetedEvent<HTMLInputElement>) => void
-  handleDelete: (e: JSX.TargetedEvent<HTMLButtonElement>) => void
-  handleDragEnd: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleDragEnter: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleDragLeave: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleDragOver: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleDragStart: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleDrop: (e: JSX.TargetedEvent<HTMLDivElement>) => void
-  handleToggleOpen: (e: JSX.TargetedEvent<HTMLElement>) => void
+  handleDelete: (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => void
+  handleDragEnd: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleDragEnter: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleDragLeave: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleDragOver: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleDragStart: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleDrop: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
+  handleToggleCheck: (e: JSX.TargetedMouseEvent<HTMLInputElement>) => void
+  handleToggleOpen: (e: JSX.TargetedMouseEvent<HTMLElement>) => void
 }
 
 export const TreeNodeList = (props: TreeNodeListProps) => {
@@ -25,7 +25,6 @@ export const TreeNodeList = (props: TreeNodeListProps) => {
     rootId,
     treeNodes,
     isDragging,
-    handleCheck,
     handleDelete,
     handleDragEnd,
     handleDragEnter,
@@ -33,6 +32,7 @@ export const TreeNodeList = (props: TreeNodeListProps) => {
     handleDragOver,
     handleDragStart,
     handleDrop,
+    handleToggleCheck,
     handleToggleOpen
   } = props
 
@@ -59,7 +59,6 @@ export const TreeNodeList = (props: TreeNodeListProps) => {
               node={node}
               parentId={parentId}
               isDragging={isDragging}
-              handleToggleCheck={handleCheck}
               handleDelete={handleDelete}
               handleDragEnd={handleDragEnd}
               handleDragEnter={handleDragEnter}
@@ -67,6 +66,7 @@ export const TreeNodeList = (props: TreeNodeListProps) => {
               handleDragOver={handleDragOver}
               handleDragStart={handleDragStart}
               handleDrop={handleDrop}
+              handleToggleCheck={handleToggleCheck}
               handleToggleOpen={handleToggleOpen}
             /> :
             <div>
@@ -76,7 +76,6 @@ export const TreeNodeList = (props: TreeNodeListProps) => {
                   node={node}
                   parentId={parentId}
                   isDragging={isDragging}
-                  handleToggleCheck={handleCheck}
                   handleDelete={handleDelete}
                   handleDragEnd={handleDragEnd}
                   handleDragEnter={handleDragEnter}
@@ -84,6 +83,7 @@ export const TreeNodeList = (props: TreeNodeListProps) => {
                   handleDragOver={handleDragOver}
                   handleDragStart={handleDragStart}
                   handleDrop={handleDrop}
+                  handleToggleCheck={handleToggleCheck}
                   handleToggleOpen={handleToggleOpen}
                 />
               </div>
