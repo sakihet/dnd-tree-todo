@@ -172,7 +172,7 @@ export function App() {
           depth={0}
           treeNodes={treeNode.children}
           rootId={treeNode.id}
-          isDragging={draggingId ? true : false}
+          isDragStarted={draggingId ? true : false}
           handleDelete={handleDelete}
           handleDragEnd={handleDragEnd}
           handleDragEnter={handleDragEnter}

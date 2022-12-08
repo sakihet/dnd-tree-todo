@@ -5,7 +5,7 @@ type TreeNodeItemProps = {
   depth: number
   node: TreeNode
   parentId: string
-  isDragging: boolean
+  isDragStarted: boolean
   handleDelete: (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => void
   handleDragEnd: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
   handleDragEnter: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
@@ -22,7 +22,7 @@ export const TreeNodeItem = (props: TreeNodeItemProps) => {
     depth,
     node,
     parentId,
-    isDragging,
+    isDragStarted,
     handleToggleCheck,
     handleDelete,
     handleDragEnd,
@@ -53,7 +53,7 @@ export const TreeNodeItem = (props: TreeNodeItemProps) => {
         data-node-id={node.id}
         data-parent-id={parentId}
       >
-        <div class={`f-1 flex-row ${isDragging ? 'pointer-events-none' : ''}`}>
+        <div class={`f-1 flex-row ${isDragStarted ? 'pointer-events-none' : ''}`}>
           {(node.children.length !== 0) &&
             <div class='flex-column text-secondary'>
               <button

@@ -7,7 +7,7 @@ type TreeNodeListProps = {
   depth: number
   rootId: string
   treeNodes: TreeNode[]
-  isDragging: boolean
+  isDragStarted: boolean
   handleDelete: (e: JSX.TargetedMouseEvent<HTMLButtonElement>) => void
   handleDragEnd: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
   handleDragEnter: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
@@ -24,7 +24,7 @@ export const TreeNodeList = (props: TreeNodeListProps) => {
     depth,
     rootId,
     treeNodes,
-    isDragging,
+    isDragStarted,
     handleDelete,
     handleDragEnd,
     handleDragEnter,
@@ -45,7 +45,7 @@ export const TreeNodeList = (props: TreeNodeListProps) => {
             node={node}
             parentId={parentId}
             position={index === 0 ? 'first' : 'theOthers'}
-            isDragging={isDragging}
+            isDragging={isDragStarted}
             handleDragEnter={handleDragEnter}
             handleDragLeave={handleDragLeave}
             handleDragOver={handleDragOver}
@@ -58,7 +58,7 @@ export const TreeNodeList = (props: TreeNodeListProps) => {
               depth={itemDepth}
               node={node}
               parentId={parentId}
-              isDragging={isDragging}
+              isDragStarted={isDragStarted}
               handleDelete={handleDelete}
               handleDragEnd={handleDragEnd}
               handleDragEnter={handleDragEnter}
@@ -75,7 +75,7 @@ export const TreeNodeList = (props: TreeNodeListProps) => {
                   depth={itemDepth}
                   node={node}
                   parentId={parentId}
-                  isDragging={isDragging}
+                  isDragStarted={isDragStarted}
                   handleDelete={handleDelete}
                   handleDragEnd={handleDragEnd}
                   handleDragEnter={handleDragEnter}
@@ -100,7 +100,7 @@ export const TreeNodeList = (props: TreeNodeListProps) => {
               node={null}
               parentId={parentId}
               position={'last'}
-              isDragging={isDragging}
+              isDragging={isDragStarted}
               handleDragEnter={handleDragEnter}
               handleDragLeave={handleDragLeave}
               handleDragOver={handleDragOver}
