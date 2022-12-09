@@ -38,8 +38,8 @@ export function App() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(treeNode))
   }, [treeNode])
 
-  const canDrop = (root: TreeNode, targetNodeId: string, maybeParentNodeId: string): boolean => {
-    if (!isParent(root, targetNodeId, maybeParentNodeId)) {
+  const canDrop = (root: TreeNode, draggingNodeId: string, dropTargetNodeId: string): boolean => {
+    if (!isParent(root, dropTargetNodeId, draggingNodeId)) {
       return true
     }
     return false
@@ -81,14 +81,14 @@ export function App() {
   }
 
   const handleDragEnter = (e: JSX.TargetedDragEvent<HTMLDivElement>) => {
-    const { first, last, parentId, nextId, dropTargetNodeId, dropTargetType } = e.currentTarget.dataset
-    if (draggingId) {
-      if (dropTargetType === 'node' && parentId && dropTargetNodeId) {
-        canDrop(treeNode, parentId, draggingId) ?
+    const { first, last, parentId, nextId, nodeId, dropTargetType } = e.currentTarget.dataset
+    if (draggingId && parentId) {
+      if (dropTargetType === 'node') {
+        canDrop(treeNode, draggingId, parentId) ?
           e.currentTarget.classList.add('droppable-node') :
           e.currentTarget.classList.add('undroppable-node')
-      } else if (dropTargetType === 'spacer' && parentId) {
-        canDrop(treeNode, parentId, draggingId) ?
+      } else if (dropTargetType === 'spacer') {
+        canDrop(treeNode, draggingId, parentId) ?
           e.currentTarget.classList.add('droppable-spacer') :
           e.currentTarget.classList.add('undroppable-spacer')
       }
@@ -115,16 +115,16 @@ export function App() {
   }
 
   const handleDrop = (e: JSX.TargetedDragEvent<HTMLDivElement>) => {
-    const {first, last, parentId, nextId, dropTargetType, dropTargetNodeId} = e.currentTarget.dataset
-    if (draggingId) {
-      if (dropTargetType === 'node' && dropTargetNodeId && canDrop(treeNode, dropTargetNodeId, draggingId)) {
-        setTreeNode({...moveToFirstChild(treeNode, draggingId, dropTargetNodeId)})
-      } else if (dropTargetType === 'spacer' && parentId) {
-        if (first && canDrop(treeNode, parentId, draggingId)) {
+    const {first, last, parentId, nextId, dropTargetType, nodeId} = e.currentTarget.dataset
+    if (draggingId && parentId) {
+      if (dropTargetType === 'node' && nodeId && canDrop(treeNode, draggingId, nodeId)) {
+        setTreeNode({...moveToFirstChild(treeNode, draggingId, nodeId)})
+      } else if (dropTargetType === 'spacer') {
+        if (first && canDrop(treeNode, draggingId, parentId)) {
           setTreeNode({...moveToFirstChild(treeNode, draggingId, parentId)})
-        } else if (last && canDrop(treeNode, parentId, draggingId)) {
+        } else if (last && canDrop(treeNode, draggingId, parentId)) {
           setTreeNode({...moveToLastChild(treeNode, draggingId, parentId)})
-        } else if (nextId && canDrop(treeNode, nextId, draggingId)){
+        } else if (nextId && canDrop(treeNode, draggingId, nextId)){
           setTreeNode({...moveBetweenNodes(treeNode, draggingId, parentId, nextId)})
         }
       }
@@ -147,42 +147,49 @@ export function App() {
   }
 
   return (
-    <div class='layout-center'>
-      <div class='layout-stack-8'>
-        <div class='text-center'>
-          <h1>Tree Todo</h1>
+    <div class='flex-column' style='min-height: 100vh;'>
+      <div class='my-4 text-center'>
+        <h1>DnD Tree Todo</h1>
+      </div>
+      <div class='f-1'>
+        <div class='layout-center'>
+          <div class='layout-stack-8'>
+            <div class='text-right'>
+              <button onClick={handleClickClear}>Clear</button>
+            </div>
+            <form
+              class=''
+              type='submit'
+              onSubmit={onSubmit}
+            >
+              <input
+                class='h-8 w-full border-1 border-solid border-color-primary'
+                type='text'
+                onInput={onInput}
+                value={newTaskName}
+                placeholder='Add a task'
+              />
+            </form>
+            <TreeNodeList
+              depth={0}
+              treeNodes={treeNode.children}
+              rootId={treeNode.id}
+              isDragStarted={draggingId ? true : false}
+              handleDelete={handleDelete}
+              handleDragEnd={handleDragEnd}
+              handleDragEnter={handleDragEnter}
+              handleDragLeave={handleDragLeave}
+              handleDragOver={handleDragOver}
+              handleDragStart={handleDragStart}
+              handleDrop={handleDrop}
+              handleToggleCheck={handleToggleCheck}
+              handleToggleOpen={handleToggleOpen}
+            />
+          </div>
         </div>
-        <div class='text-right'>
-          <button onClick={handleClickClear}>Clear</button>
-        </div>
-        <form
-          class=''
-          type='submit'
-          onSubmit={onSubmit}
-        >
-          <input
-            class='h-8 w-full border-1 border-solid border-color-primary'
-            type='text'
-            onInput={onInput}
-            value={newTaskName}
-            placeholder='Add a task'
-          />
-        </form>
-        <TreeNodeList
-          depth={0}
-          treeNodes={treeNode.children}
-          rootId={treeNode.id}
-          isDragStarted={draggingId ? true : false}
-          handleDelete={handleDelete}
-          handleDragEnd={handleDragEnd}
-          handleDragEnter={handleDragEnter}
-          handleDragLeave={handleDragLeave}
-          handleDragOver={handleDragOver}
-          handleDragStart={handleDragStart}
-          handleDrop={handleDrop}
-          handleToggleCheck={handleToggleCheck}
-          handleToggleOpen={handleToggleOpen}
-        />
+      </div>
+      <div class='text-center h-6 text-secondary text-small'>
+        <a href='https://github.com/sakihet/dnd-tree-todo'>GitHub</a>
       </div>
     </div>
   )

@@ -16,10 +16,23 @@
 * {
   box-sizing: border-box;
 }
+body,
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
 body {
   background-color: var(--color-gray-100);
   color: var(--color-gray-900);
   font-family: sans-serif;
+}
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 /* layout */
 .layout-center {
@@ -72,6 +85,9 @@ body {
 }
 .h-8 {
   height: 2rem;
+}
+.h-16 {
+  height: 4rem;
 }
 .w-8 {
   width: 2rem;

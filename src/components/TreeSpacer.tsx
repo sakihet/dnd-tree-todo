@@ -1,5 +1,6 @@
 import { JSX } from "preact/jsx-runtime"
 import { TreeNode } from "../app"
+import { INDENT_REM } from "../constants"
 
 type SpacerPosition = 'first' | 'last' | 'theOthers'
 
@@ -8,7 +9,7 @@ type TreeSpacerProps = {
   node: TreeNode | null
   parentId: string
   position : SpacerPosition
-  isDragging: boolean
+  isDragStarted: boolean
   handleDragEnter: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
   handleDragLeave: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
   handleDragOver: (e: JSX.TargetedDragEvent<HTMLDivElement>) => void
@@ -21,18 +22,16 @@ export const TreeSpacer = (props: TreeSpacerProps) => {
     node,
     parentId,
     position,
-    isDragging,
+    isDragStarted,
     handleDragEnter,
     handleDragLeave,
     handleDragOver,
     handleDrop,
   } = props
 
-  const indentRem: number = 2
-
   return (
     <div class='flex-row'>
-      <div style={{ 'width': `${depth * indentRem}rem`}} />
+      <div style={{ 'width': `${depth * INDENT_REM}rem`}} />
       <div
         class='f-1 w-full py-2'
         onDragEnter={handleDragEnter}
@@ -45,7 +44,7 @@ export const TreeSpacer = (props: TreeSpacerProps) => {
         data-next-id={node ? node.id : null}
         data-parent-id={parentId}
       >
-        <div class={`border-solid border-spacer border-color-primary ${isDragging ? 'pointer-events-none' : ''}`} />
+        <div class={`border-solid border-spacer border-color-primary ${isDragStarted ? 'pointer-events-none' : ''}`} />
       </div>
     </div>
   )

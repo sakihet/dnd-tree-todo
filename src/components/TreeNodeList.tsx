@@ -45,7 +45,7 @@ export const TreeNodeList = (props: TreeNodeListProps) => {
             node={node}
             parentId={parentId}
             position={index === 0 ? 'first' : 'theOthers'}
-            isDragging={isDragStarted}
+            isDragStarted={isDragStarted}
             handleDragEnter={handleDragEnter}
             handleDragLeave={handleDragLeave}
             handleDragOver={handleDragOver}
@@ -100,7 +100,7 @@ export const TreeNodeList = (props: TreeNodeListProps) => {
               node={null}
               parentId={parentId}
               position={'last'}
-              isDragging={isDragStarted}
+              isDragStarted={isDragStarted}
               handleDragEnter={handleDragEnter}
               handleDragLeave={handleDragLeave}
               handleDragOver={handleDragOver}

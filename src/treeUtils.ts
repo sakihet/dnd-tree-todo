@@ -1,5 +1,16 @@
 import { TreeNode } from "./app"
 
+export const isParent = (root: TreeNode, targetNodeId: string, maybeParentNodeId: string): boolean => {
+  const parent = findNode(root, maybeParentNodeId)
+  if (parent) {
+    const target = findNode(parent, targetNodeId)
+    if (target) {
+      return true
+    }
+  }
+  return false
+}
+
 export const addNode = (root: TreeNode, node: TreeNode): TreeNode => {
   return {...root, children: [node, ...root.children]}
 }
@@ -36,17 +47,6 @@ export const findNode = (root: TreeNode, nodeId: string): TreeNode | undefined =
     }
   }
   return f(root)
-}
-
-export const isParent = (root: TreeNode, targetNodeId: string, maybeParentNodeId: string): boolean => {
-  const parent = findNode(root, maybeParentNodeId)
-  if (parent) {
-    const result = findNode(parent, targetNodeId)
-    if (result) {
-      return true
-    }
-  }
-  return false
 }
 
 export const moveToFirstChild = (root: TreeNode, targetNodeId: string, parentNodeId: string) => {

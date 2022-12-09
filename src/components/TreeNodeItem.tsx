@@ -1,5 +1,6 @@
 import { JSX } from "preact/jsx-runtime"
 import { TreeNode } from "../app"
+import { INDENT_REM } from "../constants"
 
 type TreeNodeItemProps = {
   depth: number
@@ -34,11 +35,9 @@ export const TreeNodeItem = (props: TreeNodeItemProps) => {
     handleToggleOpen
   } = props
 
-  const indentRem: number = 2
-
   return (
     <div class='flex-row'>
-      <div style={{ 'width': `${depth * indentRem}rem`}} />
+      <div style={{ 'width': `${depth * INDENT_REM}rem`}} />
       <div
         class='bg-primary h-8 border-1 border-solid border-color-primary hover-primary f-1 flex-row'
         draggable
@@ -48,7 +47,6 @@ export const TreeNodeItem = (props: TreeNodeItemProps) => {
         onDragOver={handleDragOver}
         onDragStart={handleDragStart}
         onDrop={handleDrop}
-        data-drop-target-node-id={node.id}
         data-drop-target-type={'node'}
         data-node-id={node.id}
         data-parent-id={parentId}
